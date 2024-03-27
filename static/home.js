@@ -2,7 +2,6 @@
 
 function Home() {
     const [jobs, setJobs] = React.useState([]);
-    const [clickedJob, setClickedJob] = React.useState(null); // State to track the clicked job
 
     React.useEffect(() => {
         axios.get("http://127.0.0.1:5000/api/jobs").then(response => {
@@ -12,18 +11,23 @@ function Home() {
         });
     }, []);
 
+    const handleClickJob = (job) => {
+        window.location.href = `/cards?job=${job}`;
+    };
     
     return (
         <>
         <div className="base" id="base">
+            <h1>Smart Search</h1>
+            
             <h1>Find From Category</h1>
-            <a href="/cards" className="all-button" id="all-button">See all</a>
+            <button className="all-button" id="all-button" onClick={() => handleClickJob("All")}>See all</button>
             <div className="job-cards" id="job-cards">
                 {jobs.map(job => (
                     <div key={job.id} className="job-card">
-                        <button className="job-button" id={`${job.job}`} >
+                        <button className="job-button" id={`${job.job}`} onClick={() => handleClickJob(job.job)}>
                         <img className="job-image" src={`/static/images/${job.image}.png`} alt={job.job} />
-                        <h3>{job.job}</h3>
+                        <h2>{job.job}</h2>
                         </button>
                     </div>
                 ))}

@@ -20,6 +20,51 @@ def home():
 def cards():
     return render_template('cards.html')
 
+@app.route('/admin', methods = ['POST', 'GET'])
+def admin():
+    return render_template('admin.html')
+
+@app.route('/delete_card', methods = ['POST', 'GET'])
+def delete_card():
+    data_received = request.json
+    id = data_received.get('id')
+    query(sql=f"DELETE FROM professionals WHERE id={id}")
+    return render_template('admin.html')
+
+@app.route('/add_card', methods = ['POST', 'GET'])
+def add_card():
+    data_received = request.json
+    name = data_received.get('name').title()
+    phone = data_received.get('phone')
+    job = data_received.get('job')
+    rating = 0
+    query(sql=f"INSERT INTO professionals (name,profession,rating,phone) VALUES ('{name}','{job}', '{rating}', '{phone}')")
+    return render_template('admin.html')
+
+@app.route('/update_card', methods = ['POST', 'GET'])
+def update_card():
+    data_received = request.json
+    id = data_received.get('id')
+    name = data_received.get('name').title()
+    phone= data_received.get('phone')
+    if name != "" and phone != "":
+            query(sql=f"UPDATE professionals SET name='{name}',phone='{phone}' WHERE id={id}")
+    if name == "":
+        query(sql=f"UPDATE professionals SET phone='{phone}' WHERE id={id}")
+    if phone == "":
+        query(sql=f"UPDATE professionals SET name='{name}' WHERE id={id}")
+    return render_template('admin.html')
+
+@app.route('/add_recommendation', methods = ['POST', 'GET'])
+def add_recommendation():
+    data_received = request.json
+    cardID = data_received.get('cardID')
+    name = data_received.get('name')
+    rating = data_received.get('rating')
+    recommendationInput = data_received.get('recommendationInput')
+    query(sql=f"INSERT INTO recommandations (name,pro_id,rating,recommandation) VALUES ('{name}','{cardID}', {rating}, '{recommendationInput}')")
+    return render_template('home.html')
+
 @app.route('/api/jobs', methods = ['POST', 'GET'])
 def api_jobs():
     jobs = query(f"SELECT * FROM jobs")
@@ -43,8 +88,10 @@ def api_professionals():
     professionals = query(f"SELECT * FROM professionals")
     professionals_json = []
     for professional in professionals:
+        job= query(f"SELECT job FROM jobs where id= {professional[2]}")
+        image =  query(f"SELECT image FROM jobs where id= {professional[2]}")
         rating= clac_rating_avg(professional[0])
-        professional_json = {"id": professional[0], "name": professional[1], "profession": professional[2], "rating":rating, "cities":professional[4], "phone": professional[5]}
+        professional_json = {"id": professional[0], "name": professional[1], "profession": job[0][0], "rating":rating, "cities":professional[4], "phone": professional[5], "image":image[0][0]}
         professionals_json.append(professional_json)
     return json.dumps(professionals_json)
 
@@ -57,7 +104,7 @@ def clac_rating_avg(pro_id):
         sum=0
         for rate in rating_list:
             sum += float(rate[0])
-        rating_avg = sum / len(rating_list)
+        rating_avg = round(sum / len(rating_list),1)
     return rating_avg
 
 #DB 
