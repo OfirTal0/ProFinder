@@ -1,0 +1,114 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    height: 35vh;
+}
+
+
+.logo {
+    height:20vh;
+    margin-left: 1vw;
+}
+
+.home-search {
+    height: 3vh;
+    width: 20vw;
+    border-radius: 20px;
+    padding:2%;
+}
+
+
+.job-image {
+    height: 20vh;
+    width: 10vw;
+
+}
+
+.base {
+    background-color: rgba(245, 241, 241, 0.628);
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.job-cards {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 5vw;
+    overflow-x: scroll;
+    width: 70vw;
+    height: fit-content;
+    padding: 3%;
+}
+
+.job-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2vh;
+
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the entire scrollbar */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scroll handle */
+    border-radius: 20px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scroll handle on hover */
+}
+
+.job-button {
+    border: none;
+    outline: none;
+    background-color: transparent; /* Set background to transparent */
+    cursor: pointer; /* Show cursor as pointer */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    transition: box-shadow 0.3s ease; /* Add transition for smoother effect */
+    padding:10%;
+    &:hover {
+        background-color: white;
+
+    }
+
+}
+
+h1,h2,h3 {
+    color: rgba(147, 66, 66, 0.84);
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 10px;
+}
+
+.all-button {
+    font-family:Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 20px;
+
+}
