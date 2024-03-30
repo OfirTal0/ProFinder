@@ -24,7 +24,7 @@ def cards():
 def admin():
     return render_template('admin.html')
 
-@app.route('/delete_card', methods = ['POST', 'GET'])
+@app.route('/delete_card', methods = ['POST', 'GET', 'DELETE'])
 def delete_card():
     data_received = request.json
     id = data_received.get('id')
@@ -41,7 +41,7 @@ def add_card():
     query(sql=f"INSERT INTO professionals (name,profession,rating,phone) VALUES ('{name}','{job}', '{rating}', '{phone}')")
     return render_template('admin.html')
 
-@app.route('/update_card', methods = ['POST', 'GET'])
+@app.route('/update_card', methods = ['POST', 'GET', 'PUT'])
 def update_card():
     data_received = request.json
     id = data_received.get('id')
@@ -135,3 +135,4 @@ def query(sql:str="", db_name="profinder.db"):
 # # create_table(table="professionals")
 # create_table(table="recommandations")
 # # create_table(table="jobs")
+    

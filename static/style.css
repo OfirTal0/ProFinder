@@ -117,7 +117,7 @@ html {
 
 .job-button {
     width: 25vw;
-    height:fit-content;
+    height:80vh;
     border: none;
     outline: none;
     background-color: transparent; 
@@ -367,9 +367,8 @@ h3 {
 }
 
 .recommendationsDiv {
-    max-height: 30vh; /* Adjust as needed */
+    height: 30vh; /* Adjust as needed */
     overflow-y: auto;
-
 }
 
 .recommendationsDiv table {
