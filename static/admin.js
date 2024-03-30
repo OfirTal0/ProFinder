@@ -57,6 +57,8 @@ function AdminArea() {
     const [name, setName] = React.useState("");
     const [phone, setPhone] = React.useState("");
     const [editing, setEditing] = React.useState(false); // State to track if editing is enabled
+    const [errorEdit, setErrorEdit] = React.useState("");
+
 
 
     React.useEffect(() => {
@@ -118,11 +120,15 @@ function AdminArea() {
     const editCard = (id, name, phone) => {
         setName(name);
         setPhone(phone);
+        if(name=="" && phone=="") {
+            setErrorEdit("Both fields are not filled");
+        } else {
         axios.post('/update_card', {id: id, name:name, phone:phone }).then(response => {
             console.log("PASS TO UPDATE");
-            fetchCards();
+            // fetchCards();
         });
         setEditing(false);
+        }
     };
 
 
@@ -131,7 +137,8 @@ function AdminArea() {
             <div className="column-container" id="">
                 <h1>Admin Area</h1>
                 <button className="all-button" id="add-new-button" onClick={displayAddCardForm}>Add new professional</button>
-                
+                {errorEdit && <div className="error">{errorEdit}</div>}
+
                 {showAddNewCard && (
                     <form className="add-new-card" onSubmit={addCard}>
                         <h2>{editing ? 'Edit Professional' : 'Add New Professional'}</h2>
@@ -158,7 +165,9 @@ function AdminArea() {
                 )}
                 
                 <div className="pro-cards" id="pro-cards">
+
                     {cards.map(card => (
+                        
                         <div key={card.id} className="pro-card" id="pro-card">
                             <button className="card-admin">
                                 <h2>{card.profession}</h2>
@@ -168,20 +177,25 @@ function AdminArea() {
 
                                 { !editing ? (
                                     <>
+                                    <div>
                                         <button id="card-delete" className="admin-button" onClick={() => deleteCard(card.id)}>
                                             <img className="actionlogo" src={`/static/images/trash.png`} />
                                         </button>
                                         <button id="card-edit" className="admin-button" onClick={() => displayEditCard()}>
                                             <img className="actionlogo" src={`/static/images/pen.png`} />
                                         </button>
+                                    </div>
+
                                     </>
                                 ) : (
                                     <div>
-                                            <button type="submit" onClick={() => editCard(card.id, name, phone)}>Update</button>
+                                        <button type="submit" onClick={() => editCard(card.id, name, phone)} className="admin-button" >
+                                            <img className="actionlogo" src={`/static/images/yes.png`} />
+                                        </button>
 
                                     </div>
                                 )}
-
+                            
                             </button>
                         </div>
                     ))}

@@ -1,33 +1,52 @@
-
 function Cards() {
     const [cards, setCards] = React.useState([]);
     const [job, setJob] = React.useState('');
-    const [recommendation, setRecommendation] = React.useState(false);
+    const [recommandations, setRecommendations] = React.useState([]);
+    const [recommendationIndex, setRecommendationIndex] = React.useState(false);
     const [recommendationInput, setRecommendationInput] = React.useState("");
     const [rating, setRating] = React.useState("");
     const [userName, setUserName] = React.useState("");
+    const [inputSearch, setInputSearch] = React.useState("");
 
-    const fetchCards = () => {
-        axios.get("http://127.0.0.1:5000/api/professionals")
-            .then(response => {
-                setCards(response.data);
-            })
-            .catch(error => {
-                console.error("Error fetching cards:", error);
-            });
+    const handleSearch = (e) => {
+        const searchTerm = e.target.value;
+        setInputSearch(searchTerm); 
     };
+
 
     React.useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const jobParam = urlParams.get('job');
 
         setJob(jobParam);
-        fetchCards();
-    }, []);
+        axios.get("http://127.0.0.1:5000/api/professionals")
+            .then(response => {
+                let filterdCards = inputSearch ? response.data.filter((card) => {
+                return (
+                    card.name.toLowerCase().includes(inputSearch.toLowerCase()) ||
+                    card.profession.toLowerCase().includes(inputSearch.toLowerCase()) ||
+                    (card.phone && card.phone.includes(inputSearch))
+                )}) : response.data
+
+                setCards(filterdCards);
+
+            })
+            .catch(error => {
+                console.error("Error fetching cards:", error);
+        });    }, [inputSearch, recommendationIndex]);
 
 
+    React.useEffect(() => {
+            axios.get("http://127.0.0.1:5000/api/recommandations")
+                .then(response => {    
+                    setRecommendations(response.data);
+                })
+                .catch(error => {
+                    console.error("Error fetching recommendations:", error);
+            });    }, [recommendationIndex]);
+    
     const displayRecommendation = (cardID) => {
-        setRecommendation(cardID); 
+        setRecommendationIndex(cardID); 
     }
 
     const addRecommendation = (e, cardID) => {
@@ -35,19 +54,18 @@ function Cards() {
         
         axios.post('/add_recommendation', {cardID:cardID,name:userName, rating: rating, recommendationInput:recommendationInput }).then(response => {
             console.log("PASS TO add reco");
-            fetchCards();
         });
 
-        setRecommendation(false); 
-
+        setRecommendationIndex(false); 
     }
+
 
     const handleRatingChange = (e) => {
         setRating(e.target.value);
     };
 
     const noneDisplayAddCardForm = () => {
-        setRecommendation(false); 
+        setRecommendationIndex(false); 
         };
 
 
@@ -55,20 +73,59 @@ function Cards() {
         <>
         <div className="column-container" id="">
             <h1>{job === "All" ? "All" + " " : job + " "}cards</h1>
+            <form className="search" id="search">
+                    <input 
+                    type="text" 
+                    className="home-search" 
+                    placeholder="Free search..." 
+                    value={inputSearch} 
+                    onChange={handleSearch} />
+            </form>
+
             <div className="pro-cards" id="pro-cards">
                 {cards.map(card => (
                     (job === "All" || card.profession === job) && (
+
                         <div key={card.id} className="pro-card" id="pro-card">
                             <button className="job-button">
                                 <h2>{card.profession}</h2>
-                                <img className="job-image" src={`/static/images/${card.image}.png`} alt={card.profession} />
+                                <img 
+                                    className="pro-image"
+                                    src={`/static/images/pro_images/${card.id}.png`}
+                                    onError={(e) => {
+                                        e.target.onerror = null; 
+                                        e.target.src = '/static/images/pro_images/0.png'; 
+                                    }}
+                                />
                                 <h3>Name: {card.name}</h3>
                                 <h3>Rating: {card.rating}</h3>
-                                <h3>Phone: {card.phone}</h3>                                      
-                                { recommendation!==false && card.id=== recommendation ? (
+                                <h3>Phone: {card.phone}</h3>  
+                                <div className="recommendationsDiv">
+                                    <h3>Pro Recommendations</h3>
+                                    <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Rating</th>
+                                                    <th>Recommendation</th>
+                                                </tr>
+                                            </thead>
+                                        <tbody>
+                                        {recommandations.map(recommendation => (
+                                            (card.id == recommendation.pro_name) ?
+                                            <tr key={recommendation.id}>
+                                                <td>{recommendation.name}</td>
+                                                <td>{recommendation.rating}</td>
+                                                <td>{recommendation.recommandation}</td>
+                                            </tr>
+                                                : ""))}
+                                          </tbody>
+                                        </table>
+                                    
+                                </div>                                    
+                                { recommendationIndex && card.id=== recommendationIndex ? (
                                     <>
                                         <h2>Recommendation</h2>
-
                                         <form className="formClass" onSubmit={(e) => addRecommendation(e, card.id)}>
                                             <div>
                                             <label htmlFor="user_name">Your name:</label>
@@ -97,9 +154,8 @@ function Cards() {
                                     </>
                                 ) : (
                                     <div>
-                                    <button className="all-button" type="submit" onClick={() => displayRecommendation(card.id)}>Add recommendation</button>
-
-                                    </div>
+                                        <button className="all-button" type="submit" onClick={() => displayRecommendation(card.id)}>Add recommendation</button>
+                                    </div>         
                                 )}
                                 
                             </button>
@@ -115,5 +171,3 @@ function Cards() {
 
 const cards = ReactDOM.createRoot(document.getElementById("cards-container"));
 cards.render(<Cards/>);
-
-

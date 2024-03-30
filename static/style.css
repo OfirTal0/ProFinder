@@ -32,8 +32,13 @@ html {
 
 
 .job-image {
-    height: 20vh;
+    height: 18vh;
     width: 10vw;
+}
+.pro-image {
+    height: 15vh;
+    width: 8vw;
+    border-radius: 50%;
 
 }
 
@@ -44,17 +49,16 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    height: 70vh;
+    
 }
-.job-cards {
+/* .job-cards {
     align-items: center;
     display: flex;
     flex-direction: row;
     gap: 5vw;
-    overflow-x: scroll;
-    width: 70vw;
     padding: 3%;
-}
+} */
 
 .job-card {
     display: flex;
@@ -62,6 +66,15 @@ html {
     align-items: center;
     gap:2vh;
 
+}
+
+.job-cards {
+    align-items: center;
+    display: flex;
+    gap: 5vw;
+    padding: 3%;
+    width: calc(15vw * 4 + 20px); /* Adjust the width for 4 buttons */
+    overflow: hidden; /* Hide overflow to prevent buttons from extending beyond */
 }
 
 ::-webkit-scrollbar {
@@ -92,14 +105,34 @@ html {
     border: none;
     outline: none;
     background-color: transparent; 
-    width: 13vw;
-    height:20vh;
+    width: 15vw;
+    height:25vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: box-shadow 0.3s ease; 
+    display: flex;
+    flex-direction: column;
+    gap:2vh;
+    align-items: center;
 }
 
 .job-button {
-    width: 20vw;
+    width: 25vw;
+    height:fit-content;
+    border: none;
+    outline: none;
+    background-color: transparent; 
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease; 
+    padding:10%;
+    &:hover {
+        background-color: white;
+    }
+}
+
+
+.job-button-smaller {
+    width: 15vw;
     border: none;
     outline: none;
     background-color: transparent; 
@@ -138,7 +171,7 @@ h3 {
 .pro-cards {
     align-items: center;
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Two columns */
+    grid-template-columns: repeat(3, 1fr); /* Two columns */
     gap: 5vw;
     padding: 3%;
 }
@@ -156,6 +189,8 @@ h3 {
     flex-direction: column;
     gap:1vh;
     align-items: center;
+    background-color: rgba(245, 241, 241, 0.628);
+
 }
 
 .home-logo {
@@ -298,4 +333,65 @@ h3 {
 
 .formClass button[type="submit"]:active {
     background-color: #1e7e34;
+}
+
+
+/* Optional: Style adjustments for the buttons */
+#scroll-left-btn {
+    position: absolute;
+    left: 10vw;
+}
+
+#scroll-right-btn {
+    position: absolute;
+    right: 10vw;
+}
+
+.scroll-btn {
+    background-color:  rgba(147, 66, 66, 0.496); 
+    border: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.scroll-btn:hover {
+    background-color:rgba(147, 66, 66, 0.84);
+}
+
+.scroll-btn:active {
+    transform: translateY(1px);
+}
+
+.recommendationsDiv {
+    max-height: 30vh; /* Adjust as needed */
+    overflow-y: auto;
+
+}
+
+.recommendationsDiv table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recommendationsDiv table th,
+.recommendationsDiv table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.recommendationsDiv table th {
+    background-color: #f2f2f2;
+}
+
+.recommendationsDiv table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.recommendationsDiv table tbody tr:hover {
+    background-color: #ddd;
 }
