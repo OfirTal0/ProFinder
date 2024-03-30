@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, redirect, session, jsonify 
+from flask import Flask, render_template, request, redirect, session, jsonify
+import requests
+
 from flask_cors import CORS
 from datetime import datetime
 import sqlite3
@@ -135,4 +137,3 @@ def query(sql:str="", db_name="profinder.db"):
 # # create_table(table="professionals")
 # create_table(table="recommandations")
 # # create_table(table="jobs")
-    

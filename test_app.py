@@ -141,4 +141,6 @@ def test_calc_avg():
     assert response.status_code == 200
     assert clac_rating_avg(card_id) == recomm_data["rating"]
     query("DELETE FROM recommandations WHERE name = 'John Doe'")
+    query("DELETE FROM professionals WHERE name = 'John Doe'")
+
 
