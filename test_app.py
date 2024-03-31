@@ -41,12 +41,11 @@ def test_add_card():
     url = 'http://127.0.0.1:5000/add_card'
     response = requests.post(url, json=card_data)
     assert response.status_code == 200
+    query("DELETE FROM professionals WHERE name = 'John Doe'")
+
 
    ##test deleting card function
 def test_delete_card():
-    try:
-        query("DELETE FROM professionals WHERE name = 'John Doe'")
-    except:
         card_data = {
             "name": "John Doe",
             "phone": "1234567890",
@@ -65,12 +64,15 @@ def test_delete_card():
 
         professionals = query("SELECT * FROM professionals WHERE name = 'John Doe'")
         assert len(professionals) == 0
+        try:
+            query("DELETE FROM professionals WHERE name = 'John Doe'")
+        except:
+            query("DELETE FROM professionals WHERE name = 'John Doe'")
+
+
 
    ##test updating card function
 def test_update_card():
-    try:
-        query("DELETE FROM professionals WHERE name = 'John Doe'")
-    except:
         card_data = {
             "name": "John Doe",
             "phone": "1234567890",
@@ -99,12 +101,13 @@ def test_update_card():
         delete_url = 'http://127.0.0.1:5000/delete_card'
         response = requests.delete(delete_url, json=delete_data)
         assert response.status_code == 200
+        try:
+            query("DELETE FROM professionals WHERE name = 'John Doe'")
+        except:
+            query("DELETE FROM professionals WHERE name = 'John Doe'")
 
    ##test adding recommendation for card function
 def test_add_recommendations():
-    try:
-        query("DELETE FROM professionals WHERE name = 'John Doe'")
-    except:
         recomm_data = {
             "cardID": 1,  
             "name": "John Doe",
@@ -120,9 +123,6 @@ def test_add_recommendations():
 ##test calculation function of rating of card. test initializing after adding.
 # and calculating after adding new recommendation
 def test_calc_avg():
-    try:
-        query("DELETE FROM professionals WHERE name = 'John Doe'")
-    except:
         card_data = {
             "name": "John Doe",
             "phone": "1234567890",
