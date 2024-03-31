@@ -83,6 +83,7 @@ function Cards() {
             </form>
 
             <div className="pro-cards" id="pro-cards">
+                
                 {cards.map(card => (
                     (job === "All" || card.profession === job) && (
 
@@ -97,6 +98,8 @@ function Cards() {
                                         e.target.src = '/static/images/pro_images/0.png'; 
                                     }}
                                 />
+                                {recommendationIndex == false && card.id !== recommendationIndex ? (
+                                    <>
                                 <h3>Name: {card.name}</h3>
                                 <h3>Rating: {card.rating}</h3>
                                 <h3>Phone: {card.phone}</h3>  
@@ -122,8 +125,13 @@ function Cards() {
                                           </tbody>
                                         </table>
                                     
-                                </div>                                    
-                                { recommendationIndex && card.id=== recommendationIndex ? (
+                                </div> 
+                                <div>
+                                    <button className="all-button" type="submit" onClick={() => displayRecommendation(card.id)}>Add recommendation</button>
+                                </div>   
+                                </>
+                                ) : card.id=== recommendationIndex && ( 
+                                                                   
                                     <>
                                         <h2>Recommendation</h2>
                                         <form className="formClass" onSubmit={(e) => addRecommendation(e, card.id)}>
@@ -152,11 +160,7 @@ function Cards() {
                                     </form>
 
                                     </>
-                                ) : (
-                                    <div>
-                                        <button className="all-button" type="submit" onClick={() => displayRecommendation(card.id)}>Add recommendation</button>
-                                    </div>         
-                                )}
+                                )}      
                                 
                             </button>
                         </div>

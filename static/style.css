@@ -8,6 +8,12 @@ html {
     gap: 2vh;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+}
+
 .home {
     display: flex;
     flex-direction: column;
