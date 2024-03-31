@@ -20,10 +20,12 @@ Access to the admin area is restricted to authorized who have the login details 
 
 ### Docker:
 
-docker run -p 5000:5000 ofirtal/gameonweb
+docker run -p 5000:5000 ofirtal/profinder:latest
 
 ### Locally: 
 1. git clone https://github.com/OfirTal0/ProFinder.git
 2. cd ProFinder
 3. python -m pip install -r requirements.txt
 4. python app.py
+
+
