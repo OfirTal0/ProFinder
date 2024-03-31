@@ -24,7 +24,7 @@ username: admin, password: adminadmin
 
 ### Docker:
 
-docker run -p 5000:5000 ofirtal/profinder:latest3
+docker run -p 5000:5000 ofirtal/profinder:latest
 
 ### Locally: 
 1. git clone https://github.com/OfirTal0/ProFinder.git
