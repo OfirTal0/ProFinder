@@ -1,8 +1,5 @@
-from flask import Flask, render_template, request, redirect, session, jsonify
-import requests
-
+from flask import Flask, render_template, request
 from flask_cors import CORS
-from datetime import datetime
 import sqlite3
 import json
 
