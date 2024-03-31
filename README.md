@@ -14,13 +14,17 @@ ProFinder makes it easy to find the right professional for your needs.
 This allows users to quickly assess the reputation and quality of service of each professional.
 
 5. Admin Area: The admin area provides administrative functionalities such as creating, updating, and deleting professional cards.
-Access to the admin area is restricted to authorized who have the login details only
+Access to the admin area is restricted to authorized who have the login details only.
+the app will remember admin users that already login using localstorage.
+
+### admin login
+username: admin, password: adminadmin
 
 ## Getting Started
 
 ### Docker:
 
-docker run -p 5000:5000 ofirtal/profinder:latest2
+docker run -p 5000:5000 ofirtal/profinder:latest3
 
 ### Locally: 
 1. git clone https://github.com/OfirTal0/ProFinder.git
