@@ -20,7 +20,7 @@ Access to the admin area is restricted to authorized who have the login details 
 
 ### Docker:
 
-docker run -p 5000:5000 ofirtal/profinder:latest
+docker run -p 5000:5000 ofirtal/profinder:latest2
 
 ### Locally: 
 1. git clone https://github.com/OfirTal0/ProFinder.git
