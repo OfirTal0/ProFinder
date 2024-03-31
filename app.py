@@ -3,6 +3,12 @@ from flask_cors import CORS
 import sqlite3
 import json
 
+def query(sql:str="", db_name="profinder.db"):
+    with sqlite3.connect(db_name) as conn:
+        cur = conn.cursor()
+        rows = cur.execute(sql)
+        return list(rows)    
+
 app = Flask(__name__)
 CORS(app)
 
@@ -106,15 +112,6 @@ def clac_rating_avg(pro_id):
         rating_avg = round(sum / len(rating_list),1)
     return rating_avg
 
-#DB 
-
-import sqlite3
-
-def query(sql:str="", db_name="profinder.db"):
-    with sqlite3.connect(db_name) as conn:
-        cur = conn.cursor()
-        rows = cur.execute(sql)
-        return list(rows)    
 
 # def create_table(table="professionals"):
 #     sql = f"CREATE TABLE IF NOT EXISTS {table} (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, profession  TEXT, rating INT, cities TEXT, phone TEXT)"
