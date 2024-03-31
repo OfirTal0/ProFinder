@@ -56,7 +56,7 @@ function AdminArea() {
     const [selectedJob, setSelectedJob] = React.useState("");
     const [name, setName] = React.useState("");
     const [phone, setPhone] = React.useState("");
-    const [editing, setEditing] = React.useState(false); // State to track if editing is enabled
+    const [editing, setEditing] = React.useState(false); 
     const [errorEdit, setErrorEdit] = React.useState("");
 
 
@@ -125,7 +125,6 @@ function AdminArea() {
         } else {
         axios.post('/update_card', {id: id, name:name, phone:phone }).then(response => {
             console.log("PASS TO UPDATE");
-            // fetchCards();
         });
         setEditing(false);
         }
