@@ -122,15 +122,19 @@ html {
 }
 
 .job-button {
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+    font-size: smaller;
+    font-family:sans-serif;
+
+    align-items: center;
     width: 25vw;
     height:80vh;
-    border: none;
-    outline: none;
     background-color: transparent; 
-    cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: box-shadow 0.3s ease; 
-    padding:10%;
+    padding:2%;
     &:hover {
         background-color: white;
     }
@@ -171,6 +175,7 @@ h3 {
     text-decoration: none;
     padding: 5px;
     border-radius: 10px;
+    cursor: pointer;
 
 }
 
@@ -302,6 +307,9 @@ h3 {
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .formClass label {
@@ -311,7 +319,6 @@ h3 {
 
 .formClass input[type="text"],
 .formClass select {
-    width:70%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -339,6 +346,20 @@ h3 {
 
 .formClass button[type="submit"]:active {
     background-color: #1e7e34;
+}
+
+.add-new-card button {
+    padding: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.add-new-card button[type="submit"] {
+    background-color: #28a745;
 }
 
 

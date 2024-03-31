@@ -158,8 +158,10 @@ function AdminArea() {
                             <label htmlFor="phone">Phone:</label>
                             <input type="text" id="phone" onChange={(e) => setPhone(e.target.value)}  required />
                         </div>
-                        <button type="submit">Add</button>
-                        <button type="submit" onClick={noneDisplayAddCardForm}>Close</button>
+                        <div>
+                        <button className="all-button" type="submit">Add</button>
+                        <button className="all-button" type="button"  onClick={noneDisplayAddCardForm}>Close</button>
+                        </div>
                     </form>
                 )}
                 
